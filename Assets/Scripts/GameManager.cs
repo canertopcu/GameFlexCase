@@ -30,6 +30,20 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
+    private void OnEnable()
+    {
+        EventManager.OnGridGenerate += EventManager_OnGridGenerate;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnGridGenerate -= EventManager_OnGridGenerate;
+    }
+
+    private void EventManager_OnGridGenerate(int obj)
+    {
+        matchCounter = 0;
+    }
 
     private void Update()
     {

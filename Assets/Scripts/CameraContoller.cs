@@ -36,13 +36,13 @@ public class CameraContoller : MonoBehaviour
 
     void SetHeightByRatio(float ratio)
     {
-        float minFoV = 50;
+        float minFoV = 40;
         float maxFoV = 127;
 
         float diffHeight = maxFoV - minFoV;
 
         float minRatio = 0.165f;
-        float maxRatio = 0.8f;
+        float maxRatio =1f;
         if (ratio > maxRatio)
         {
             ratio = maxRatio;
@@ -52,8 +52,8 @@ public class CameraContoller : MonoBehaviour
             ratio = minRatio;
         }
         float normalizedRatio = (ratio - minRatio) / (maxRatio - minRatio);
-        float height = minFoV + diffHeight * Mathf.Pow(1 - normalizedRatio, 3);
-        Camera.main.fieldOfView = height;
+        float fov = Mathf.Lerp(minFoV, maxFoV, Mathf.Pow(1 - normalizedRatio, 3));
+        Camera.main.fieldOfView = fov;
 
     }
 

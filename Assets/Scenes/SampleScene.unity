@@ -349,7 +349,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 
+  m_Text: 5
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -916,8 +916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97aa6111341db254ea15d1f0c3f90091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ratio: 0
-  width: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,6 +2042,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1470170004}
   - component: {fileID: 1470170003}
+  - component: {fileID: 1470170005}
+  - component: {fileID: 1470170006}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -2063,11 +2063,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7118039e2406e454bae5ec1f478ed463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rowCount: 3
-  columnCount: 3
-  boxPrefab: {fileID: 6991496474256665368, guid: d55290b2b5a34a54e9b724bbe35eb2a5,
-    type: 3}
-  selectedBoxes: []
 --- !u!4 &1470170004
 Transform:
   m_ObjectHideFlags: 0
@@ -2092,6 +2087,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470170005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470170002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df05be05bb487df4b879ea2eca9c9bbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxPrefab: {fileID: 6991496474256665368, guid: d55290b2b5a34a54e9b724bbe35eb2a5,
+    type: 3}
+  rowCount: 5
+  columnCount: 5
+--- !u!114 &1470170006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470170002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef134b5e42c09874ab57fc9751ccc9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedBoxes: []
 --- !u!1 &1483354954
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,7 +2174,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u200B"
+  m_text: "5\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
