@@ -41,6 +41,7 @@ public class SquareGridGenerator : MonoBehaviour, IGridGenerator
         boxes = null;
     }
 
+    [ContextMenu("Generate Grid")]
     public void GenerateGrid()
     {
         ClearAllBoxes();
@@ -57,6 +58,7 @@ public class SquareGridGenerator : MonoBehaviour, IGridGenerator
 
                 GameObject box = Instantiate(boxPrefab, transform);
 #endif
+                box.name = "GridBox(" + x + "," + y + ")";
                 GridBox b = box.GetComponent<GridBox>();
                 b.x = x;
                 b.y = y;
