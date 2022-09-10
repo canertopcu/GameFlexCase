@@ -5,5 +5,5 @@ public interface ISelectedBox
     List<GridBox> GetSelectedBoxes();
     void AddSelectedBox(GridBox selectedGridBox);
 
-    void ClearSelectedBoxes();
+    void ClearSelectedBoxes(List<GridBox> boxList);
 }

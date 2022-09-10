@@ -18,20 +18,11 @@ public class CameraContoller : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
         ratio = (float)Screen.width / (float)Screen.height;
-
-
-
-
     }
 
     void SetHeightByRatio(float ratio)
@@ -42,7 +33,7 @@ public class CameraContoller : MonoBehaviour
         float diffHeight = maxFoV - minFoV;
 
         float minRatio = 0.165f;
-        float maxRatio =1f;
+        float maxRatio = 1f;
         if (ratio > maxRatio)
         {
             ratio = maxRatio;

@@ -12,11 +12,18 @@ public class SquareGridGenerator : MonoBehaviour, IGridGenerator
     private void Awake()
     {
         EventManager.OnGridGenerate += EventManager_OnGridGenerate;
+        EventManager.OnMatchedGridsCleared += EventManager_OnMatchedGridsCleared;
     }
 
     private void OnDisable()
     {
+        EventManager.OnMatchedGridsCleared -= EventManager_OnMatchedGridsCleared;
         EventManager.OnGridGenerate -= EventManager_OnGridGenerate;
+    }
+
+    private void EventManager_OnMatchedGridsCleared(List<GridBox> gridBoxList)
+    {
+        ResetMatchedGridBoxes(gridBoxList);
     }
 
     private void EventManager_OnGridGenerate(int rowColumnCount)
@@ -24,9 +31,6 @@ public class SquareGridGenerator : MonoBehaviour, IGridGenerator
         SetRowColumnCount(rowColumnCount, rowColumnCount);
         GenerateGrid();
     }
-
-
-
 
     public void ClearAllBoxes()
     {
@@ -90,6 +94,14 @@ public class SquareGridGenerator : MonoBehaviour, IGridGenerator
             {
                 boxes[x, y].SetEmpty();
             }
+        }
+    }
+
+    public void ResetMatchedGridBoxes(List<GridBox> gridBoxes)
+    {
+        foreach (var item in gridBoxes)
+        {
+            item.SetEmpty();
         }
     }
 

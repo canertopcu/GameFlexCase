@@ -8,6 +8,7 @@ public class GridBox : MonoBehaviour
     public int x, y;
     private bool isEmpty = true;
     public GameObject cross;
+    public List<GridBox> connections;
     public void Fill()
     {
         isEmpty = false;
@@ -25,6 +26,21 @@ public class GridBox : MonoBehaviour
     public bool IsEmpty()
     {
         return isEmpty;
+    }
+
+    public void GetConnectedBoxes(ref List<GridBox> list)
+    {
+        if (connections != null)
+        {
+            foreach (var item in connections)
+            {
+                if (!list.Contains(item))
+                {
+                    list.Add(item);
+                    item.GetConnectedBoxes(ref list);
+                }
+            }
+        }
     }
 
 }

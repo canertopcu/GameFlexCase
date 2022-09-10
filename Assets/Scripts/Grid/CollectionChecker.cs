@@ -5,7 +5,11 @@ using UnityEngine;
 public class CollectionChecker : MonoBehaviour, ICollectionChecker
 {
     public List<GridBox> selectedBoxes;
-
+    public List<GridBox> connections;
+    private void Start()
+    {
+        connections = new List<GridBox>();
+    }
     public List<GridBox> GetSelectedBoxes()
     {
         if (selectedBoxes == null)
@@ -18,10 +22,11 @@ public class CollectionChecker : MonoBehaviour, ICollectionChecker
     public void CheckAllSelectedBoxes(IGridGenerator gridGenerator)
     {
         GridBox[,] boxes = gridGenerator.GetBoxes();
-
+        List<GridBox> localConnections = new List<GridBox>();
+        bool anyMatched = false;
         for (int i = 0; i < selectedBoxes.Count; i++)
         {
-            int neighbourCounter = 0;
+            int connectionCount = 0;
             int x = selectedBoxes[i].x;
             int y = selectedBoxes[i].y;
 
@@ -30,7 +35,8 @@ public class CollectionChecker : MonoBehaviour, ICollectionChecker
             {
                 if (!boxes[x, y - 1].IsEmpty())
                 {
-                    neighbourCounter++;
+                    localConnections.Add(boxes[x, y - 1]);
+                    connectionCount++;
                 }
             }
 
@@ -39,7 +45,8 @@ public class CollectionChecker : MonoBehaviour, ICollectionChecker
             {
                 if (!boxes[x, y + 1].IsEmpty())
                 {
-                    neighbourCounter++;
+                    localConnections.Add(boxes[x, y + 1]);
+                    connectionCount++;
                 }
             }
 
@@ -48,23 +55,40 @@ public class CollectionChecker : MonoBehaviour, ICollectionChecker
             {
                 if (!boxes[x - 1, y].IsEmpty())
                 {
-                    neighbourCounter++;
+                    localConnections.Add(boxes[x - 1, y]);
+
+                    connectionCount++;
                 }
             }
+
             //check right
             if (x <= gridGenerator.GetColumnCount() - 2)
             {
                 if (!boxes[x + 1, y].IsEmpty())
                 {
-                    neighbourCounter++;
+                    localConnections.Add(boxes[x + 1, y]);
+                    connectionCount++;
                 }
             }
 
-            if (neighbourCounter > 1)
+            //Set neighbours
+            boxes[x, y].connections = localConnections;
+
+            //Check and generate matched connected list
+            if (connectionCount > 1)
             {
-                GameManager.matchCounter++;
-                break;
+                connections.Add(boxes[x, y]);
+                boxes[x, y].GetConnectedBoxes(ref connections);
+                anyMatched = true;
             }
+            localConnections.Clear();
+        }
+
+        if (anyMatched)
+        {
+            ClearSelectedBoxes(connections);
+            connections.Clear();
+            GameManager.matchCounter++;
         }
     }
 
@@ -76,9 +100,16 @@ public class CollectionChecker : MonoBehaviour, ICollectionChecker
         }
     }
 
-    public void ClearSelectedBoxes()
+    public void ClearSelectedBoxes(List<GridBox> boxList)
     {
-        selectedBoxes.Clear();
+        EventManager.MatchedGridsCleared(boxList);
+
+        foreach (var item in boxList)
+        {
+            selectedBoxes.Remove(item);
+        }
+
+        //selectedBoxes.Clear();
     }
 
 }
